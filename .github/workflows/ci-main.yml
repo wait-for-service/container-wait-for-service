@@ -96,7 +96,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.DOCKER_REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           build-args: |
-            "${{ matrix.version }}"
+            PROFILE="${{ matrix.version }}"
       - name: Export digest
         run: |
           mkdir -p /tmp/digests/${{ matrix.version }}
