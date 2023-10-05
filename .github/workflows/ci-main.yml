@@ -190,12 +190,12 @@ jobs:
             latest=false
             prefix=${{ matrix.version }}_
           tags: |
-            type=sha,format=long
-            type=sha
+            type=sha,format=long,pattern={{version}},value=${{ needs.release.outputs.version }}
+            type=sha,pattern={{version}},value=${{ needs.release.outputs.version }}
             type=semver,pattern={{version}},value=${{ needs.release.outputs.version }}
-            type=ref,event=branch
-            type=ref,event=pr
-            type=ref,event=tag
+            type=ref,event=branch,pattern={{version}},value=${{ needs.release.outputs.version }}
+            type=ref,event=pr,pattern={{version}},value=${{ needs.release.outputs.version }}
+            type=ref,event=tag,pattern={{version}},value=${{ needs.release.outputs.version }}
           labels: |
             org.opencontainers.image.licenses=Apache-2.0          
       - name: Login to Docker Hub
