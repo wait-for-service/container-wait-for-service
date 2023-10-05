@@ -68,7 +68,8 @@ jobs:
           - base
           - kafka
           - all
-
+    needs: 
+      - release
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -77,7 +78,19 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.DOCKER_REGISTRY_IMAGE }}        
+          images: ${{ env.DOCKER_REGISTRY_IMAGE }}
+          flavor: |
+            latest=false
+            prefix=${{ matrix.version }}_
+          tags: |
+            type=sha,format=long
+            type=sha
+            type=semver,pattern={{version}},value=${{ needs.release.outputs.version }}
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
+          labels: |
+            org.opencontainers.image.licenses=Apache-2.0              
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
