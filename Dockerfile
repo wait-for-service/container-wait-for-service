@@ -11,7 +11,7 @@ RUN mkdir /work;\
     addgroup --gid "${GROUP_ID}" "${GROUP_NAME}";\
     adduser --disabled-password --gecos "" --home "/work" --ingroup "$USER_NAME" --no-create-home --uid "$USER_ID" "$USER_NAME"
 COPY requirements-${PROFILE}.txt /requirements.txt
-RUN pip3 install -r /requirements.txt
+RUN pip3 install --no-cache-dir -r /requirements.txt
 
 
 USER ${USER_NAME}
