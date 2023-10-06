@@ -1,1 +1,1 @@
-wait-for-service==1.2.0
+wait-for-service==1.2.1
